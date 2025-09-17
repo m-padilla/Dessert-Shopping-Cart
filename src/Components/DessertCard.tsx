@@ -1,6 +1,9 @@
+import { getImageUrl } from "../utilities/getImageURL"
+import { FiMinus, FiPlus } from "react-icons/fi";
+import { useShoppingCart } from "../context/ShoppingCartContext";
+import formatCurrency from "../utilities/formatCurrency";
 
-
-type DessertCardProps = {
+export type DessertProps = {
     dessert: {
         image: {
             desktop: string,
@@ -14,33 +17,65 @@ type DessertCardProps = {
 
 }
 
-const getImageUrl = (path: string) => new URL(path, import.meta.url).href;
 
-function DessertCard({ dessert }: DessertCardProps) {
+
+function DessertCard({ dessert }: DessertProps) {
+
+    const {
+        getItemQuantity,
+        increaseQuantity,
+        decreaseQuantity,
+    } = useShoppingCart();
+
+    const quantity = getItemQuantity(dessert.name)
 
     return (
-        <div className="px-5">
+        <div className="p-3">
             {/* image and button */}
             <div className="relative">
                 <img
                     src={getImageUrl(dessert.image.desktop)}
                     alt={dessert.name}
-                    className="w-full h-60 rounded-lg text-white object-cover"
+                    className={ quantity == 0 
+                        ? "w-full h-52 rounded-lg text-white object-cover"
+                        : "w-full h-52 rounded-lg object-cover border-2 border-red-500"
+                    }
                 />
 
-                <button className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-white p-2 rounded-full border-2 border-">
-                    <div className="flex flex-nowrap text-sm px-2">
-                    <img src={getImageUrl('/src/assets/images/icon-add-to-cart.svg')}/>
-                    <p className="pl-2 ">Add to Cart</p>
+                {/* add to cart button */}
 
-                    </div>
-                </button>
+                {
+                    quantity == 0
+                        ? <button
+                            className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-white md:w-[150px] p-2 rounded-full border-2 border-red-500"
+                            onClick={() => increaseQuantity(dessert.name)}>
+                            <div className="flex justify-center items-center text-xs px-2">
+                                <img src={getImageUrl('/src/assets/images/icon-add-to-cart.svg')} className="text-xs" />
+                                <p className="pl-2 flex-nowrap text-red-500 font-semibold">Add to Cart</p>
+                            </div>
+                        </button>
+                        : <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-red-500 w-[150px] max-h-10 p-2 rounded-full border-2 border-red-500">
+                            <div className="flex justify-between items-center px-2">
+                                <button className="border-2 border-white rounded-full"
+                                    onClick={() => decreaseQuantity(dessert.name)}>
+                                    <FiMinus className="text-md text-white hover:text-red-500 hover:bg-white rounded-full" />
+                                </button>
+
+                                <p className=" text-md flex-nowrap text-white font-semibold ">{ quantity }</p>
+
+                                <button className="border-2 border-white rounded-full"
+                                    onClick={() => increaseQuantity(dessert.name)}>
+                                    <FiPlus className="text-md text-white hover:text-red-500 hover:bg-white rounded-full" />
+                                </button>
+                            </div>
+                        </div>
+                }
 
             </div>
 
 
             {/* text info of desserts */}
-            <div className="pt-7">
+            <div className="py-7 text-sm">
                 <p className="text-brown">
                     {dessert.category}
                 </p>
@@ -48,7 +83,7 @@ function DessertCard({ dessert }: DessertCardProps) {
                     {dessert.name}
                 </p>
                 <p className="text-red-400">
-                    ${dessert.price}
+                    {formatCurrency(dessert.price)}
                 </p>
             </div>
         </div>
