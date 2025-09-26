@@ -36,7 +36,10 @@ function DessertCard({ dessert }: DessertProps) {
             {/* image and button */}
             <div className="relative">
                 <img
-                    src={isMobile ? getImageUrl(dessert.image.mobile) : getImageUrl(dessert.image.desktop)}
+                    src={isMobile 
+                        ? getImageUrl(dessert.image.mobile) 
+                        : getImageUrl(dessert.image.desktop)
+                    }
                     alt={dessert.name}
                     className={quantity == 0
                         ? "w-full h-52 rounded-lg text-white object-cover"

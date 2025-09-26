@@ -20,7 +20,7 @@ function Cart() {
         <>
             <DialogModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
-            <div className='p-5'>
+            <div className='p-5 sticky'>
                 <div className='bg-white rounded-lg'>
                     <div className="flex pt-5 px-5 font-bold text-lg text-red">
                         <p>Your Cart</p>
