@@ -1,13 +1,10 @@
-
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = "https://desserts-shopping-cart-api.onrender.com/api";
 
 export const getDesserts = async ({ query }: { query: string }) => {
   const endpoint = query
     ? `${BASE_URL}/dessert/${encodeURIComponent(query)}`
     : `${BASE_URL}/desserts`;
 
-    // console.log("endpoint", endpoint)
-    
   const response = await fetch(endpoint);
 
   if (!response.ok) {
@@ -16,8 +13,6 @@ export const getDesserts = async ({ query }: { query: string }) => {
   }
 
   const data = await response.json();
-  // console.log("🍰 API response:", data);
-return data;
 
-  // return data;
+  return data;
 };
