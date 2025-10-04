@@ -102,14 +102,19 @@ function DialogModal({ isOpen, onClose }: {
     return () => dialog.removeEventListener("close", handleClose);
   }, [onClose]);
 
-  const { 
-    data: desserts,
-    loading: dessertsLoading,
-    error: dessertError
-  } = useFetch<Dessert[]>(() => getDesserts({
-    // fetch all desserts to get prices for total calculation
-    query: ''
-  }))
+    function dessertPrice(id: number) {
+        const {
+            data: dessert,
+            loading: loadingDessert,
+            error: errorDessert,
+        } = useFetch<Dessert>(() => getDesserts({
+            query: String(id)
+        }))
+
+        if (loadingDessert || errorDessert || !dessert) return 0;
+
+        return dessert?.price;
+    }
 
   return (
     <dialog
@@ -146,9 +151,8 @@ function DialogModal({ isOpen, onClose }: {
           <p className="text-sm">Order Total</p>
           <span className="font-bold ml-auto text-2xl">{formatCurrency(
             cartItems.reduce((total, cartItem) => {
-              const item = desserts && desserts.find(i => i._id ===
-                cartItem.id)
-              return total + (item?.price || 0) * cartItem.quantity
+              const price = dessertPrice(cartItem.id);
+              return total + (price || 0) * cartItem.quantity
             }, 0)
           )}</span>
         </div>
