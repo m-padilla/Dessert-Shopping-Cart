@@ -2,19 +2,10 @@ import { getImageUrl } from "../utilities/getImageURL"
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { useShoppingCart } from "../context/ShoppingCartContext.tsx";
 import formatCurrency from "../utilities/formatCurrency";
+import type { Dessert } from "../interfaces/Dessersts.interfaces.tsx";
 
 export type DessertProps = {
-    dessert: {
-        image: {
-            desktop: string,
-            mobile: string,
-            thumbnail: string
-        }
-        price: number,
-        name: string,
-        category: string
-    }
-
+    dessert: Dessert
 }
 
 
@@ -27,18 +18,20 @@ function DessertCard({ dessert }: DessertProps) {
         decreaseQuantity,
     } = useShoppingCart();
 
-    const quantity = getItemQuantity(dessert.name)
+    const quantity = getItemQuantity(dessert._id)
 
     const isMobile = window.matchMedia("(max-width: 375px)").matches;
 
+    // console.log(dessert.image.desktop);
     return (
         <div className="p-3">
             {/* image and button */}
             <div className="relative">
                 <img
-                    src={isMobile 
-                        ? getImageUrl(dessert.image.mobile) 
-                        : getImageUrl(dessert.image.desktop)
+                    src={dessert.images &&
+                        isMobile 
+                        ? getImageUrl(dessert.images.mobile)
+                        : dessert.images.desktop
                     }
                     alt={dessert.name}
                     className={quantity == 0
@@ -53,7 +46,7 @@ function DessertCard({ dessert }: DessertProps) {
                     quantity == 0
                         ? <button
                             className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-white md:w-[150px] p-2 rounded-full border-2 border-red"
-                            onClick={() => increaseQuantity(dessert.name)}>
+                            onClick={() => increaseQuantity(dessert._id)}>
                             <div className="flex justify-center items-center text-xs px-2">
                                 <img src={getImageUrl('/src/assets/images/icon-add-to-cart.svg')} className="text-xs" />
                                 <p className="pl-2 flex-nowrap text-rose-900 font-semibold">Add to Cart</p>
@@ -62,14 +55,14 @@ function DessertCard({ dessert }: DessertProps) {
                         : <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-red w-[150px] max-h-10 p-2 rounded-full border-2 border-red">
                             <div className="flex justify-between items-center px-2">
                                 <button className="border-2 border-white rounded-full"
-                                    onClick={() => decreaseQuantity(dessert.name)}>
+                                    onClick={() => decreaseQuantity(dessert._id)}>
                                     <FiMinus className="text-md text-white hover:text-red hover:bg-white rounded-full" />
                                 </button>
 
                                 <p className=" text-md flex-nowrap text-white font-semibold ">{quantity}</p>
 
                                 <button className="border-2 border-white rounded-full"
-                                    onClick={() => increaseQuantity(dessert.name)}>
+                                    onClick={() => increaseQuantity(dessert._id)}>
                                     <FiPlus className="text-md text-white hover:text-red hover:bg-white rounded-full" />
                                 </button>
                             </div>

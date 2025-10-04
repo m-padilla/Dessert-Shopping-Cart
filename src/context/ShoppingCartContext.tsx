@@ -3,15 +3,15 @@ import { useLocalStorage } from "../hook/useLocalStorage"
 
 
 type CartItem = {
-  name: string
+  id: number
   quantity: number
 }
 
 type ShoppingCartContext = {
-  getItemQuantity: (name: string) => number
-  increaseQuantity: (name: string) => void
-  decreaseQuantity: (name: string) => void
-  removeFromCart: (name: string) => void
+  getItemQuantity: (id: number) => number
+  increaseQuantity: (id: number) => void
+  decreaseQuantity: (id: number) => void
+  removeFromCart: (id: number) => void
   cartQuantity: number
   cartItems: CartItem[]
 }
@@ -32,16 +32,16 @@ export function ShoppingCartProvider({ children }: {children: React.ReactNode}) 
     0
   )
 
-  function getItemQuantity(name: string) {
-    return cartItems.find(item => item.name === name)?.quantity || 0
+  function getItemQuantity(id: number) {
+    return cartItems.find(item => item.id === id)?.quantity || 0
   }
-  function increaseQuantity(name: string) {
+  function increaseQuantity(id: number) {
     setCartItems(currItems => {
-      if (currItems.find(item => item.name === name) == null) {
-        return [...currItems, { name, quantity: 1 }]
+      if (currItems.find(item => item.id === id) == null) {
+        return [...currItems, { id, quantity: 1 }]
       } else {
         return currItems.map(item => {
-          if (item.name === name) {
+          if (item.id === id) {
             return { ...item, quantity: item.quantity + 1 }
           } else {
             return item
@@ -50,13 +50,13 @@ export function ShoppingCartProvider({ children }: {children: React.ReactNode}) 
       }
     })
   }
-  function decreaseQuantity(name: string) {
+  function decreaseQuantity(id: number) {
     setCartItems(currItems => {
-      if (currItems.find(item => item.name === name)?.quantity === 1) {
-        return currItems.filter(item => item.name !== name)
+      if (currItems.find(item => item.id === id)?.quantity === 1) {
+        return currItems.filter(item => item.id !== id)
       } else {
         return currItems.map(item => {
-          if (item.name === name) {
+          if (item.id === id) {
             return { ...item, quantity: item.quantity - 1 }
           } else {
             return item
@@ -65,9 +65,9 @@ export function ShoppingCartProvider({ children }: {children: React.ReactNode}) 
       }
     })
   }
-  function removeFromCart(name: string) {
+  function removeFromCart(id: number) {
     setCartItems(currItems => {
-      return currItems.filter(item => item.name !== name)
+      return currItems.filter(item => item.id !== id)
     })
   }
 
