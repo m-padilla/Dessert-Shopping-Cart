@@ -8,6 +8,12 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.env
+assets
+design
+data.json
+style-guide.md 
+
 dist
 dist-ssr
 *.local
