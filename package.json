@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && echo '--- ROOT CONTENTS ---' && ls -la && echo '--- DIST CONTENTS ---' && ls -la dist || echo 'dist folder not found'",
     "lint": "eslint .",
     "preview": "vite preview"
   },
