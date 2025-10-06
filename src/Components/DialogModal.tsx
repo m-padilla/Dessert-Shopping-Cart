@@ -135,7 +135,7 @@ function DialogModal({ isOpen, onClose }: {
 
                   <img
                     className="py-4"
-                    src={getImageUrl("https://dessert-shopping-cart.onrender.com/src/assets/images/icon-order-confirmed.svg")} />
+                    src={getImageUrl("/images/icon-order-confirmed.svg")} />
 
                   <p className="font-bold text-4xl">Order Confirmed</p>
                   <p className="text-sm text-slate-400">We hope you enjoy your food!</p>

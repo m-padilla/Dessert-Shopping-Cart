@@ -22,7 +22,6 @@ function DessertCard({ dessert }: DessertProps) {
 
     const isMobile = window.matchMedia("(max-width: 375px)").matches;
 
-    // console.log(dessert.image.desktop);
     return (
         <div className="p-3">
             {/* image and button */}
@@ -48,7 +47,7 @@ function DessertCard({ dessert }: DessertProps) {
                             className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-white md:w-[150px] p-2 rounded-full border-2 border-red"
                             onClick={() => increaseQuantity(dessert._id)}>
                             <div className="flex justify-center items-center text-xs px-2">
-                                <img src={getImageUrl('https://dessert-shopping-cart.onrender.com/src/assets/images/icon-add-to-cart.svg')} className="text-xs" />
+                                <img src={getImageUrl('/images/icon-add-to-cart.svg')} className="text-xs" />
                                 <p className="pl-2 flex-nowrap text-rose-900 font-semibold">Add to Cart</p>
                             </div>
                         </button>

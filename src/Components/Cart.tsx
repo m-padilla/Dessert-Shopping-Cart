@@ -44,7 +44,7 @@ function Cart() {
                                         {cartQuantity == 0
                                             ? <div className="flex flex-col justify-center items-center py-5">
                                                 <img
-                                                    src={getImageUrl('https://dessert-shopping-cart.onrender.com/src/assets/images/illustration-empty-cart.svg')}
+                                                    src={getImageUrl('/images/illustration-empty-cart.svg')}
                                                     className="h-full aspect-square object-cover" />
                                                 <span className="text-sm">Your added items will appear here</span>
                                             </div> : <>
@@ -74,7 +74,7 @@ function Cart() {
                                                         <div className="bg-rose-50 p-2 rounded-md">
                                                             <div className="flex justify-center items-center">
                                                                 <img
-                                                                    src={getImageUrl('https://dessert-shopping-cart.onrender.com/src/assets/images/icon-carbon-neutral.svg')}
+                                                                    src={getImageUrl('/images/icon-carbon-neutral.svg')}
                                                                     className="h-full aspect-square object-cover" />
                                                                 <p className="pl-2">
                                                                     This is a
