@@ -1,3 +1,3 @@
 export function getImageUrl(path: string){
-    return new URL(path, import.meta.url).href;
+    return new URL('https://dessert-shopping-cart.onrender.com' + path, import.meta.url).href;
 }

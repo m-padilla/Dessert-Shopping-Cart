@@ -102,73 +102,78 @@ function DialogModal({ isOpen, onClose }: {
     return () => dialog.removeEventListener("close", handleClose);
   }, [onClose]);
 
-    function dessertPrice(id: number) {
-        const {
-            data: dessert,
-            loading: loadingDessert,
-            error: errorDessert,
-        } = useFetch<Dessert>(() => getDesserts({
-            query: String(id)
-        }))
-
-        if (loadingDessert || errorDessert || !dessert) return 0;
-
-        return dessert?.price;
-    }
+  const {
+    data: desserts,
+    loading,
+    error
+  } = useFetch<Dessert[]>(() => getDesserts({
+    query: ''
+  }))
 
   return (
-    <dialog
-      ref={dialogRef}
-      className="w-full md:w-[500px] max-w-md
-        p-8 
-        backdrop:bg-black/50
-        rounded-t-2xl md:rounded-lg
+    <>
+      {
+        loading ? <div>Loading...</div>
+          : error ? <div>Error: {error.message}</div>
+            : (
 
-        /* override dialog defaults */
-        md:m-auto
-        m-0
-        md:translate-x-0 md:translate-y-0
-        fixed bottom-0
-        transform-none"
-    >
-      <div className="pb-8">
+              <dialog
+                ref={dialogRef}
+                className="w-full md:w-[500px] max-w-md
+      p-8 
+      backdrop:bg-black/50
+      rounded-t-2xl md:rounded-lg
+      
+      /* override dialog defaults */
+      md:m-auto
+      m-0
+      md:translate-x-0 md:translate-y-0
+      fixed bottom-0
+      transform-none"
+              >
+                <div className="pb-8">
 
-        <img
-          className="py-4"
-          src={getImageUrl("/src/assets/images/icon-order-confirmed.svg")} />
+                  <img
+                    className="py-4"
+                    src={getImageUrl("/src/assets/images/icon-order-confirmed.svg")} />
 
-        <p className="font-bold text-4xl">Order Confirmed</p>
-        <p className="text-sm text-slate-400">We hope you enjoy your food!</p>
-      </div>
+                  <p className="font-bold text-4xl">Order Confirmed</p>
+                  <p className="text-sm text-slate-400">We hope you enjoy your food!</p>
+                </div>
 
-      <div className="bg-amber-50 p-3 rounded-lg">
-        {cartItems.map((item) => (
-          <OrderedItem id={String(item.id)} key={item.id} />
-        ))}
+                <div className="bg-amber-50 p-3 rounded-lg">
+                  {cartItems.map((item) => (
+                    <OrderedItem id={String(item.id)} key={item.id} />
+                  ))}
 
-        {/* Gross total */}
-        <div className="flex pt-3">
-          <p className="text-sm">Order Total</p>
-          <span className="font-bold ml-auto text-2xl">{formatCurrency(
-            cartItems.reduce((total, cartItem) => {
-              const price = dessertPrice(cartItem.id);
-              return total + (price || 0) * cartItem.quantity
-            }, 0)
-          )}</span>
-        </div>
-      </div>
+                  {/* Gross total */}
+                  <div className="flex pt-3">
+                    <p className="text-sm">Order Total</p>
+                    <span className="font-bold ml-auto text-2xl">
+                      {
+                        formatCurrency(
+                          cartItems.reduce((total, cartItem) => {
+                             const item = desserts && desserts.find(dessert => dessert._id === cartItem.id) 
+                            return total + (item && item.price || 0) * cartItem.quantity
+                          }, 0)
+                        )}</span>
+                  </div>
+                </div>
 
-      <div
-        className="pt-5">
-        <button
-          onClick={() => onClose()}
-          className="bg-red rounded-full w-full h-full py-2 text-white">
-          Start New Order
-        </button>
+                <div
+                  className="pt-5">
+                  <button
+                    onClick={() => onClose()}
+                    className="bg-red rounded-full w-full h-full py-2 text-white">
+                    Start New Order
+                  </button>
 
-      </div>
+                </div>
 
-    </dialog >
+              </dialog >
+            )
+      }
+    </>
   );
 }
 
