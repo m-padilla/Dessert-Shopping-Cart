@@ -17,6 +17,7 @@ Challenge: [Product list with cart](https://www.frontendmentor.io/challenges/pro
 
 <br />
 
+<!-- <img width="1919" height="1003" alt="Screenshot 2025-10-11 191123" src="https://github.com/user-attachments/assets/c504e229-cae9-4e28-ac6a-556ec36df909" /> -->
 
 <!--
  ```diff
