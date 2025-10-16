@@ -19,15 +19,11 @@ function Cart() {
 
     const {
         data: desserts,
-        loading,
-        error
     } = useFetch<Dessert[]>(() => getDesserts({
         query: ''
     }))
 
     return (
-
-
         <>
             <DialogModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
@@ -54,23 +50,19 @@ function Cart() {
                                 {/* Gross total */}
                                 <div className="flex">
                                     <p className="text-md">Order Total</p>
-                                    {
-                                        loading ? (<div className="font-bold ml-auto text-lg">0.00</div>)
-                                            : error ? (<div>Error: {error.message}</div>)
-                                                : (
-                                                    <span className="font-bold ml-auto text-lg">
-                                                        {
-                                                            formatCurrency(
-                                                                cartItems.reduce((total, cartItem) => {
-                                                                    const item = desserts && desserts.find(dessert => dessert._id === cartItem.id)
-                                                                    return total + (item && item.price || 0) * cartItem.quantity;
-                                                                }, 0)
-                                                            )
 
-                                                        }
-                                                    </span>
-                                                   
-                                                )}
+                                    <span className="font-bold ml-auto text-lg">
+                                        {
+                                            formatCurrency(
+                                                cartItems.reduce((total, cartItem) => {
+                                                    const item = desserts && desserts.find(dessert => dessert._id === cartItem.id)
+                                                    return total + (item && item.price || 0) * cartItem.quantity;
+                                                }, 0)
+                                            )
+
+                                        }
+                                    </span>
+
 
                                 </div>
                                 {/* little banner for the eco stuff */}

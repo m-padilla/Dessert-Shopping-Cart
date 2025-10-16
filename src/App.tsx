@@ -39,7 +39,7 @@ function App() {
             <div className='md:flex items-center'>
               <h1 className='text-rose-900 text-5xl p-5 font-bold'>Desserts</h1>
               {dessertsLoading ? (
-                <div className='md:ml-auto ml-5 px-5 h-10 w-fit bg-white text-rose-900 rounded-lg'>Loading...</div>
+                <div className='md:ml-auto ml-5 px-5 h-10 w-fit  text-rose-900 rounded-lg'>Loading...</div>
               ) : dessertError ? (
                 <div>{dessertError.message}</div>
               ) : (
@@ -112,10 +112,10 @@ function LoadingPlaceholder() {
       <div className="py-7 space-y-2">
 
         {/* category */}
-        <p className="max-w-24 bg-slate-500 animate-pulse h-4"></p>
+        <p className="max-w-24 h-4 bg-slate-500 animate-pulse"></p>
 
         {/* name */}
-        <p className="max-w-60  h-4 bg-slate-500 animate-pulse"></p>
+        <p className="max-w-60 h-4 bg-slate-500 animate-pulse"></p>
 
         {/* price */}
         <p className="max-w-20 h-4 bg-slate-500 animate-pulse"></p>

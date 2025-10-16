@@ -24,7 +24,7 @@ function OrderedItem({ id }: { id: string }) {
   return (
     <>
       {
-        dessertsLoading ? <div>Loading...</div>
+        dessertsLoading ? (null)
           : dessertError ? <div>{dessertError.message}</div>
             : (item &&
 
@@ -113,7 +113,7 @@ function DialogModal({ isOpen, onClose }: {
   return (
     <>
       {
-        loading ? <div>Loading...</div>
+        loading ? (null)
           : error ? <div>Error: {error.message}</div>
             : (
 
