@@ -1,5 +1,4 @@
-// const BASE_URL = "https://dessert-shopping-cart-api.onrender.com/api";
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = "https://dessert-shopping-cart-api.onrender.com/api";
 
 export const getDesserts = async ({ query }: { query: string }) => {
   const endpoint = query
